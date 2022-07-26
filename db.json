@@ -21,7 +21,7 @@
         "The Tourist",
         "Alice in Wonderland"
       ],
-      "fullName": "Johnny Dep",
+      "fullName": "Johnny Depp",
       "birthYear": "1963",
       "nationality": "USA",
       "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Johnny_Depp_Deauville_2019.jpg/220px-Johnny_Depp_Deauville_2019.jpg"
@@ -36,7 +36,7 @@
         "Saving Private Ryan",
         "FWA"
       ],
-      "fullName": "Steven Spielberg",
+      "fullName": "Steven Spielbergg",
       "birthYear": "1946",
       "nationality": "USA",
       "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Ready_Player_One_Japan_Premiere_Red_Carpet_Steven_Spielberg_%2841604920761%29_%28cropped%29.jpg/240px-Ready_Player_One_Japan_Premiere_Red_Carpet_Steven_Spielberg_%2841604920761%29_%28cropped%29.jpg"
@@ -57,7 +57,7 @@
   "movies": [
     {
       "id": 1,
-      "title": "Indiana John",
+      "title": "Indiana Joh",
       "directors": [
         "Stiven Spilberg",
         "Spilberg Stiven",
@@ -126,7 +126,7 @@
   "studios": [
     {
       "id": 1,
-      "title": "Lucasfilm Ltd. LLC",
+      "title": "Lucasfilm Ltd. LL",
       "location": "San Francisco",
       "foundationYear": "1971",
       "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Lucasfilm_logo.svg/250px-Lucasfilm_logo.svg.png"

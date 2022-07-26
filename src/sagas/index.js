@@ -19,7 +19,12 @@ import {
   getAllMoviesSaga,
   updateMovieSaga,
 } from './moviesSagas'
-import { getAllStudiosSaga } from './studioSagas'
+import {
+  createStudioSaga,
+  deleteStudioSaga,
+  getAllStudiosSaga,
+  updateStudioSaga,
+} from './studioSagas'
 
 function* rootSaga() {
   yield takeLatest(ACTIONS_TYPES.GET_MOVIES_ACTION, getAllMoviesSaga)
@@ -30,14 +35,17 @@ function* rootSaga() {
   yield takeLatest(ACTIONS_TYPES.POST_MOVIE_ACTION, createMovieSaga)
   yield takeLatest(ACTIONS_TYPES.POST_DIRECTOR_ACTION, createDirectorSaga)
   yield takeLatest(ACTIONS_TYPES.POST_ACTOR_ACTION, createActorSaga)
+  yield takeLatest(ACTIONS_TYPES.POST_STUDIO_ACTION, createStudioSaga)
 
   yield takeLatest(ACTIONS_TYPES.PUT_DIRECTOR_ACTION, updateDirectorSaga)
   yield takeLatest(ACTIONS_TYPES.PUT_MOVIE_ACTION, updateMovieSaga)
   yield takeLatest(ACTIONS_TYPES.PUT_ACTOR_ACTION, updateActorSaga)
+  yield takeLatest(ACTIONS_TYPES.PUT_STUDIO_ACTION, updateStudioSaga)
 
   yield takeLatest(ACTIONS_TYPES.DELETE_DIRECTOR_ACTION, deleteDirectorSaga)
   yield takeLatest(ACTIONS_TYPES.DELETE_MOVIE_ACTION, deleteMovieSaga)
   yield takeLatest(ACTIONS_TYPES.DELETE_ACTOR_ACTION, deleteActorSaga)
+  yield takeLatest(ACTIONS_TYPES.DELETE_STUDIO_ACTION, deleteStudioSaga)
 }
 
 export default rootSaga
