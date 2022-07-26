@@ -3,13 +3,10 @@ import {
   Route,
   Routes,
   Navigate,
-  useParams,
-  useLocation,
-  useMatch,
 } from 'react-router-dom'
 
 import './App.css'
-import CinemaService from './cinema-service'
+
 import Actors from './components/Actors/Actors'
 import Directors from './components/Directors/Directors'
 import Layout from './components/Layout'

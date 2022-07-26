@@ -29,6 +29,8 @@ function Actors() {
         <Link to='new'>New</Link>
       </div>
       <Routes>
+        <Route path='new' />
+
         <Route path=':id' element={<ActorItem actors={actors} />} />
         <Route
           path='/'

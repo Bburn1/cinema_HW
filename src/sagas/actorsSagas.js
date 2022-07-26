@@ -52,7 +52,7 @@ export function* createActorSaga({ payload }) {
   yield put(createActorRequest())
   try {
     const newActor = yield cinemaService
-      .post('/', payload)
+      .post('/actors', payload)
       .then(({ data }) => data)
     yield put(createActorSuccess(newActor))
   } catch (error) {

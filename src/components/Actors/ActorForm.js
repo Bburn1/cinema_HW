@@ -25,8 +25,6 @@ function ActorForm() {
     actorsList: { actors },
   } = useSelector((state) => state)
 
-  // console.log(actors)
-
   const currentActor = actors.find((actor) => actor.id === parseInt(id))
 
   const schema = Yup.object().shape({
