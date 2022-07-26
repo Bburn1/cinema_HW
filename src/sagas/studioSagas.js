@@ -2,13 +2,31 @@ import { put } from 'redux-saga/effects'
 
 import cinemaService from '../cinema-service'
 import {
+  createStudioError,
+  createStudioRequest,
+  createStudioSuccess,
+  deleteStudioError,
+  deleteStudioRequest,
+  deleteStudioSuccess,
   getAllStudiosError,
   getAllStudiosRequest,
   getAllStudiosSuccess,
-  getStudioError,
-  getStudioRequest,
-  getStudioSuccess,
+  updateStudioError,
+  updateStudioRequest,
+  updateStudioSuccess,
 } from '../store/actions/studioAction'
+
+export function* createStudioSaga({ payload }) {
+  yield put(createStudioRequest())
+  try {
+    const newStudio = yield cinemaService
+      .post('/studios', payload)
+      .then(({ data }) => data)
+    yield put(createStudioSuccess(newStudio))
+  } catch (error) {
+    yield put(createStudioError(error))
+  }
+}
 
 export function* getAllStudiosSaga() {
   yield put(getAllStudiosRequest())
@@ -20,14 +38,24 @@ export function* getAllStudiosSaga() {
   }
 }
 
-export function* getOneStudioSaga({ payload }) {
-  yield put(getStudioRequest())
+export function* updateStudioSaga({ payload }) {
+  yield put(updateStudioRequest())
   try {
-    const studio = yield cinemaService
-      .get(`/studios/${payload}`, payload)
+    const updateStudio = yield cinemaService
+      .put(`/studios/${payload.id}`, payload)
       .then(({ data }) => data)
-    yield put(getStudioSuccess(studio))
+    yield put(updateStudioSuccess(updateStudio))
   } catch (error) {
-    yield put(getStudioError(error))
+    yield put(updateStudioError(error))
+  }
+}
+
+export function* deleteStudioSaga({ payload }) {
+  yield put(deleteStudioRequest())
+  try {
+    yield cinemaService.delete(`/studios/${payload}`)
+    yield put(deleteStudioSuccess(payload))
+  } catch (error) {
+    yield put(deleteStudioError(error))
   }
 }

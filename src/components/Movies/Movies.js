@@ -1,23 +1,42 @@
-import React from 'react'
-import { Link, Navigate, Route, Routes } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, Route, Routes } from 'react-router-dom'
 
-import MovieForm from './MovieForm'
+import {
+  deleteMovieAction,
+  getAllMoviesAction,
+} from '../../store/actions/movieActions'
+
 import MovieItem from './MovieItem'
 import MovieList from './MovieList'
 
 function Movies() {
+  const dispatch = useDispatch()
+  const {
+    moviesList: { movies },
+  } = useSelector((state) => state)
+
+  useEffect(() => {
+    dispatch(getAllMoviesAction())
+  }, [dispatch])
+
+  const onDelete = (id) => {
+    dispatch(deleteMovieAction(id))
+  }
+
   return (
     <>
-    <div>
-      <Link to='new'>New</Link>
-    </div>
-    <Routes>
-      <Route path='new' element={<MovieForm/>}/>
-      <Route path='new/:id' element={<MovieForm/>}/>
-      <Route path=':id' element={<MovieItem/>}/>
-      <Route path='/' element={<MovieList/>}/>
-      <Route path='new' element={<Navigate to='new/:id'/>}/>
-    </Routes>
+      <div>
+        <Link to='new'>New</Link>
+      </div>
+      <Routes>
+        <Route path='new' />
+        <Route path=':id' element={<MovieItem movies={movies} />} />
+        <Route
+          path='/'
+          element={<MovieList movies={movies} onDelete={onDelete} />}
+        />
+      </Routes>
     </>
   )
 }

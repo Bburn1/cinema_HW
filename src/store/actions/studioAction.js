@@ -22,30 +22,7 @@ export const getAllStudiosError = (payload) => {
     payload,
   }
 }
-// Get by id
-export const getStudioAction = (payload) => {
-  return {
-    type: ACTIONS_TYPES.GET_STUDIO_ACTION,
-    payload,
-  }
-}
-export const getStudioRequest = () => {
-  return {
-    type: ACTIONS_TYPES.GET_STUDIO_REQUEST,
-  }
-}
-export const getStudioSuccess = (payload) => {
-  return {
-    type: ACTIONS_TYPES.GET_STUDIO_SUCCESS,
-    payload,
-  }
-}
-export const getStudioError = (payload) => {
-  return {
-    type: ACTIONS_TYPES.GET_STUDIO_ERROR,
-    payload,
-  }
-}
+
 // Create
 export const createStudioAction = (payload) => {
   return {

@@ -2,12 +2,18 @@ import { put } from 'redux-saga/effects'
 
 import cinemaService from '../cinema-service'
 import {
-  getActorError,
-  getActorRequest,
-  getActorSuccess,
+  createActorError,
+  createActorRequest,
+  createActorSuccess,
+  deleteActorError,
+  deleteActorRequest,
+  deleteActorSuccess,
   getAllActorsError,
   getAllActorsRequest,
   getAllActorsSuccess,
+  updateActorError,
+  updateActorRequest,
+  updateActorSuccess,
 } from '../store/actions/actorAction'
 
 export function* getAllActorsSaga() {
@@ -20,14 +26,36 @@ export function* getAllActorsSaga() {
   }
 }
 
-export function* getOneActorSaga({ payload }) {
-  yield put(getActorRequest())
+export function* updateActorSaga({ payload }) {
+  yield put(updateActorRequest())
   try {
-    const actor = yield cinemaService
-      .get(`/actors/${payload}`, payload)
+    const updateActor = yield cinemaService
+      .put(`/actors/${payload.id}`, payload)
       .then(({ data }) => data)
-    yield put(getActorSuccess(actor))
+    yield put(updateActorSuccess(updateActor))
   } catch (error) {
-    yield put(getActorError(error))
+    yield put(updateActorError(error))
+  }
+}
+
+export function* deleteActorSaga({ payload }) {
+  yield put(deleteActorRequest())
+  try {
+    yield cinemaService.delete(`/actors/${payload}`)
+    yield put(deleteActorSuccess(payload))
+  } catch (error) {
+    yield put(deleteActorError(error))
+  }
+}
+
+export function* createActorSaga({ payload }) {
+  yield put(createActorRequest())
+  try {
+    const newActor = yield cinemaService
+      .post('/', payload)
+      .then(({ data }) => data)
+    yield put(createActorSuccess(newActor))
+  } catch (error) {
+    yield put(createActorError(error))
   }
 }

@@ -1,47 +1,52 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import { getMovieAction } from '../../store/actions/movieActions'
+import { Grid, Stack } from '@mui/material'
+import React from 'react'
 
+import { useParams } from 'react-router-dom'
 import { emptyMovie } from '../../constants'
 
-function MovieItem() {
+function MovieItem({ movies }) {
   const { id } = useParams()
 
-  // const {
-  //   moviesList: { movies },
-  // } = useSelector((state) => state)
-
-  // const currentMovie = movies.find((movie) => movie.id === parseInt(id))
-
-  // console.log(id)
-  // console.log(movies)
-  // console.log(currentMovie)
-
-  const {
-    moviesList: { oneMovie },
-  } = useSelector((state) => state)
-
-  // const {
-  //   moviesList: { movies },
-  // } = useSelector((state) => state)
-
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getMovieAction(id))
-  }, [dispatch, id])
-  // console.log(movies)
+  const film = movies.find((item) => item.id === parseInt(id))
+  const movie = film ? film : emptyMovie
 
   return (
-    <div>
-      {/* <p>{currentMovie.title}</p>
-      <img src={currentMovie.poster} /> */}
+    <Grid container>
+      <Grid
+        item
+        lg={12}
+        md={12}
+        xl={12}
+        sm={12}
+        xs={12}
+        className='movie-header'
+      >
+        <h1>{movie.title}</h1>
+      </Grid>
+      <Grid className='photo-container' item lg={5} md={5} xl={5} sm={5} xs={5}>
+        <img className='photo' src={movie.poster} alt='movie'></img>
+      </Grid>
+      <Grid item lg={7} md={7} xl={7} sm={7} xs={7}>
+        <Stack>
+          <h2>About Movie</h2>
 
-      <p>{oneMovie.title}</p>
+          <h3>Directors:</h3>
+          {movie.directors.map((director, index) => (
+            <p key={index}>{director}</p>
+          ))}
 
-      <img src={oneMovie.poster} alt='Poster' />
-    </div>
+          <h3>Actors:</h3>
+          {movie.actors.map((actor, index) => (
+            <p key={index}>{actor}</p>
+          ))}
+
+          <h3>Studios:</h3>
+          {movie.studios.map((studio, index) => (
+            <p key={index}>{studio}</p>
+          ))}
+        </Stack>
+      </Grid>
+    </Grid>
   )
 }
 

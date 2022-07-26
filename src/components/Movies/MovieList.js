@@ -1,47 +1,34 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+
 import { Link } from 'react-router-dom'
 
-import { getAllMoviesAction } from '../../store/actions/movieActions'
-import MovieItem from './MovieItem'
-
-function MovieList() {
-  const dispatch = useDispatch()
-  const {
-    moviesList: { movies },
-  } = useSelector((state) => state)
-
-  useEffect(() => {
-    dispatch(getAllMoviesAction())
-  }, [dispatch])
-
-  // const getMovie = ({ id }) => {
-  //   dispatch(getMovieAction(id))
-  //   console.log(id)
-  // }
+function MovieList({ movies, onDelete }) {
+  const onDeleteMovie = (id) => {
+    onDelete(id)
+  }
 
   return (
     <div>
       <ul>
         {movies.map((movie) => {
           return (
-            <li key={movie.id}>
-              <Link
-                element={<MovieItem movie={movie} />}
-                key={movie.id}
-                to={`${movie.id}`}
-              >
+            <li key={movie.id} className='item-list-inbox'>
+              <Link to={`${movie.id}`}>
                 <p>{movie.title}</p>
               </Link>
-              <Link to={`new/${movie.id}`}>
-                <p>Edit</p>
-              </Link>
+              <div className='edit-item_box'>
+                <Link to={`new/${movie.id}`}>
+                  <p id='edit' className='fa fa-pencil'></p>
+                </Link>
+                <span
+                  id='delete'
+                  className='fa fa fa-trash-o'
+                  onClick={() => onDeleteMovie(movie.id)}
+                ></span>
+              </div>
             </li>
           )
         })}
-        {/* <Routes>
-          <Route path=':id' element={<MovieItem />} />
-        </Routes> */}
       </ul>
     </div>
   )

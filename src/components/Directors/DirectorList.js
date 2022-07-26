@@ -1,31 +1,18 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, Route, Routes } from 'react-router-dom'
-import { getAllDirectorsAction } from '../../store/actions/directorAction'
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 import DirectorItem from './DirectorItem'
 
-function DirectorList() {
-  const dispatch = useDispatch()
-  const {
-    directorsList: { directors },
-  } = useSelector((state) => state)
-
-  useEffect(() => {
-    dispatch(getAllDirectorsAction())
-  }, [dispatch])
-
-  // const getMovie = ({ id }) => {
-  //   dispatch(getMovieAction(id))
-  //   console.log(id)
-  // }
-
+function DirectorList({ directors, onDelete }) {
+  const onDeleteDirector = (id) => {
+    onDelete(id)
+  }
   return (
     <div>
       <ul>
         {directors.map((director) => {
           return (
-            <li key={director.id}>
+            <li key={director.id} className='item-list-inbox'>
               <Link
                 element={<DirectorItem director={director} />}
                 key={director.id}
@@ -33,15 +20,20 @@ function DirectorList() {
               >
                 <p>{director.fullName}</p>
               </Link>
-              <Link to={`new/${director.id}`}>
-                <p>Edit</p>
-              </Link>
+
+              <div className='edit-item_box'>
+                <Link to={`new/${director.id}`}>
+                  <p id='edit' className='fa fa-pencil'></p>
+                </Link>
+                <span
+                  id='delete'
+                  className='fa fa fa-trash-o'
+                  onClick={() => onDeleteDirector(director.id)}
+                ></span>
+              </div>
             </li>
           )
         })}
-        {/* <Routes>
-          <Route path=':id' element={<DirectorItem />} />
-        </Routes> */}
       </ul>
     </div>
   )

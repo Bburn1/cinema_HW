@@ -1,31 +1,19 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, Route, Routes } from 'react-router-dom'
-import { getAllActorsAction } from '../../store/actions/actorAction'
+import React from 'react'
+
+import { Link } from 'react-router-dom'
 
 import ActorItem from './ActorItem'
 
-function ActorsList() {
-  const dispatch = useDispatch()
-  const {
-    actorsList: { actors },
-  } = useSelector((state) => state)
-
-  useEffect(() => {
-    dispatch(getAllActorsAction())
-  }, [dispatch])
-
-  // const getMovie = ({ id }) => {
-  //   dispatch(getMovieAction(id))
-  //   console.log(id)
-  // }
-
+function ActorsList({ actors, onDelete }) {
+  const onDeleteActor = (id) => {
+    onDelete(id)
+  }
   return (
     <div>
       <ul>
         {actors.map((actor) => {
           return (
-            <li key={actor.id}>
+            <li key={actor.id} className='item-list-inbox'>
               <Link
                 element={<ActorItem actor={actor} />}
                 key={actor.id}
@@ -33,15 +21,19 @@ function ActorsList() {
               >
                 <p>{actor.fullName}</p>
               </Link>
-              <Link to={`new/${actor.id}`}>
-                <p>Edit</p>
-              </Link>
+              <div className='edit-item_box'>
+                <Link to={`new/${actor.id}`}>
+                  <p id='edit' className='fa fa-pencil'></p>
+                </Link>
+                <span
+                  id='delete'
+                  className='fa fa fa-trash-o'
+                  onClick={() => onDeleteActor(actor.id)}
+                ></span>
+              </div>
             </li>
           )
         })}
-        {/* <Routes>
-          <Route path=':id' element={<ActorItem />} />
-        </Routes> */}
       </ul>
     </div>
   )

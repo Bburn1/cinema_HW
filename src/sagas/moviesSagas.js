@@ -1,13 +1,31 @@
 import { put } from 'redux-saga/effects'
 import {
+  createMovieError,
+  createMovieRequest,
+  createMovieSuccess,
+  deleteMovieError,
+  deleteMovieRequest,
+  deleteMovieSuccess,
   getAllMoviesError,
   getAllMoviesRequest,
   getAllMoviesSuccess,
-  getMovieSuccess,
-  getMovieError,
-  getMovieRequest,
+  updateMovieError,
+  updateMovieRequest,
+  updateMovieSuccess,
 } from '../store/actions/movieActions'
 import cinemaService from '../cinema-service'
+
+export function* createMovieSaga({ payload }) {
+  yield put(createMovieRequest())
+  try {
+    const newMovie = yield cinemaService
+      .post('/movies', payload)
+      .then(({ data }) => data)
+    yield put(createMovieSuccess(newMovie))
+  } catch (error) {
+    yield put(createMovieError(error))
+  }
+}
 
 export function* getAllMoviesSaga() {
   yield put(getAllMoviesRequest())
@@ -19,14 +37,24 @@ export function* getAllMoviesSaga() {
   }
 }
 
-export function* getOneMovieSaga({ payload }) {
-  yield put(getMovieRequest())
+export function* updateMovieSaga({ payload }) {
+  yield put(updateMovieRequest())
   try {
-    const onemovie = yield cinemaService
-      .get(`/movies/${payload}`, payload)
+    const updateMovie = yield cinemaService
+      .put(`/movies/${payload.id}`, payload)
       .then(({ data }) => data)
-    yield put(getMovieSuccess(onemovie))
+    yield put(updateMovieSuccess(updateMovie))
   } catch (error) {
-    yield put(getMovieError(error))
+    yield put(updateMovieError(error))
+  }
+}
+
+export function* deleteMovieSaga({ payload }) {
+  yield put(deleteMovieRequest())
+  try {
+    yield cinemaService.delete(`/movies/${payload}`)
+    yield put(deleteMovieSuccess(payload))
+  } catch (error) {
+    yield put(deleteMovieError(error))
   }
 }

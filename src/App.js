@@ -1,29 +1,38 @@
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+  useParams,
+  useLocation,
+  useMatch,
+} from 'react-router-dom'
 
-import './App.css';
-import Actors from './components/Actors/Actors';
-import Directors from './components/Directors/Directors';
-import Layout from './components/Layout';
-import Movies from './components/Movies/Movies';
-import Studios from './components/Studios/Studios';
+import './App.css'
+import CinemaService from './cinema-service'
+import Actors from './components/Actors/Actors'
+import Directors from './components/Directors/Directors'
+import Layout from './components/Layout'
+import Movies from './components/Movies/Movies'
+import Studios from './components/Studios/Studios'
 
 function App() {
-	return (
-		<Router>
-			<div className='container'>
-				<Routes>
-          <Route path="/" element={<Layout />}>
-            <Route path="movies/*" element={<Movies/>}/>
-            <Route path="actors/*" element={<Actors/>}/>
-            <Route path="directors/*" element={<Directors/>}/>
-            <Route path="studios/*" element={<Studios/>}/>
-            <Route index element={<div>Home</div>}/>
-            <Route path="*" element={<Navigate to="/movies" replace={true}/>}/>
+  return (
+    <Router>
+      <div className='container'>
+        <Routes>
+          <Route path='*' element={<Layout />}>
+            <Route path='movies/*' element={<Movies />} />
+            <Route path='actors/*' element={<Actors />} />
+            <Route path='directors/*' element={<Directors />} />
+            <Route path='studios/*' element={<Studios />} />
+            <Route index element={<div>Home</div>} />
+            <Route path='*' element={<Navigate to='/movies' />} />
           </Route>
         </Routes>
-			</div>
-		</Router>
-	);
+      </div>
+    </Router>
+  )
 }
 
-export default App;
+export default App
