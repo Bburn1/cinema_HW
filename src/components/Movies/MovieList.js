@@ -1,10 +1,13 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 
 import { Link } from 'react-router-dom'
+import { deleteMovieAction } from '../../store/actions/movieActions'
 
-function MovieList({ movies, onDelete }) {
+function MovieList({ movies }) {
+  const dispatch = useDispatch()
   const onDeleteMovie = (id) => {
-    onDelete(id)
+    dispatch(deleteMovieAction(id))
   }
 
   return (

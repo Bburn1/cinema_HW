@@ -1,12 +1,14 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 
 import { Link } from 'react-router-dom'
+import { deleteActorAction } from '../../store/actions/actorAction'
 
-import ActorItem from './ActorItem'
+function ActorsList({ actors }) {
+  const dispatch = useDispatch()
 
-function ActorsList({ actors, onDelete }) {
   const onDeleteActor = (id) => {
-    onDelete(id)
+    dispatch(deleteActorAction(id))
   }
   return (
     <div>
@@ -14,11 +16,7 @@ function ActorsList({ actors, onDelete }) {
         {actors.map((actor) => {
           return (
             <li key={actor.id} className='item-list-inbox'>
-              <Link
-                element={<ActorItem actor={actor} />}
-                key={actor.id}
-                to={`${actor.id}`}
-              >
+              <Link key={actor.id} to={`${actor.id}`}>
                 <p>{actor.fullName}</p>
               </Link>
               <div className='edit-item_box'>

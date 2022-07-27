@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material'
+import { ButtonGroup, Stack } from '@mui/material'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import React from 'react'
 import * as Yup from 'yup'
@@ -7,13 +7,13 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { emptyStudios } from '../../constants'
 import {
   createStudioAction,
-  deleteStudioAction,
   updateStudioAction,
 } from '../../store/actions/studioAction'
 import { Button } from '@mui/material'
 import SaveIcon from '@mui/icons-material/Save'
-import DeleteIcon from '@mui/icons-material/Delete'
+
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn'
+import CleaningServicesIcon from '@mui/icons-material/CleaningServices'
 
 function StudioForm() {
   const dispatch = useDispatch()
@@ -21,7 +21,6 @@ function StudioForm() {
   const navigate = useNavigate()
   const {
     studiosList: { studios },
-    // moviesList: { movies },
   } = useSelector((state) => state)
 
   const currentStudio = studios.find((studio) => studio.id === parseInt(id))
@@ -29,7 +28,7 @@ function StudioForm() {
     title: Yup.string().required('Name is required'),
   })
 
-  const onStudioSubmit = (values, actions) => {
+  const onStudioSubmit = (values) => {
     !values.id
       ? dispatch(createStudioAction({ ...values, id: Date.now() }))
       : dispatch(updateStudioAction(values))
@@ -37,11 +36,6 @@ function StudioForm() {
   }
 
   const goHome = () => navigate('/studios')
-
-  const onStudioDelete = (id) => {
-    dispatch(deleteStudioAction(id))
-    goHome()
-  }
 
   const renderFormik = (props) => {
     return (
@@ -63,44 +57,43 @@ function StudioForm() {
           <label htmlFor='foundationYear'>Foundation Year</label>
           <Field name='foundationYear'></Field>
         </Stack>
-        <Stack>
-          <Stack direction='row' spacing={2}>
-            <label htmlFor='logo'>logo</label>
-            <Field
-              className='textarea-container'
-              as='textarea'
-              name='logo'
-            ></Field>
-          </Stack>
-          <ErrorMessage name='logo'>
-            {(msg) => <div className='error'>{msg}</div>}
-          </ErrorMessage>
+
+        <Stack direction='row' spacing={2}>
+          <label htmlFor='logo'>logo</label>
+          <Field
+            className='textarea-container'
+            as='textarea'
+            name='logo'
+          ></Field>
         </Stack>
 
-        <Stack>
+        <ButtonGroup variant='contained' className='button-group'>
           <Button
+            variant='outlined'
             type='submit'
             startIcon={<SaveIcon />}
-            // disabled={}
+            disabled={!props.isValid}
             size='large'
           >
             Save
           </Button>
           <Button
-            startIcon={<DeleteIcon />}
+            variant='outlined'
+            type='reset'
             size='large'
-            onClick={() => onStudioDelete(id)}
+            startIcon={<CleaningServicesIcon />}
           >
-            Delete
+            Reset
           </Button>
           <Button
+            variant='outlined'
             startIcon={<KeyboardReturnIcon />}
             size='large'
             onClick={() => goHome()}
           >
             Return
           </Button>
-        </Stack>
+        </ButtonGroup>
       </Form>
     )
   }

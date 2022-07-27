@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material'
+import { ButtonGroup, Stack } from '@mui/material'
 import { ErrorMessage, Field, FieldArray, Form, Formik } from 'formik'
 import React from 'react'
 import * as Yup from 'yup'
@@ -7,7 +7,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { emptyDirectors } from '../../constants'
 import {
   createDirectorAction,
-  deleteDirectorAction,
   updateDirectorAction,
 } from '../../store/actions/directorAction'
 import { Button } from '@mui/material'
@@ -15,6 +14,7 @@ import AddIcon from '@mui/icons-material/Add'
 import SaveIcon from '@mui/icons-material/Save'
 import DeleteIcon from '@mui/icons-material/Delete'
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn'
+import CleaningServicesIcon from '@mui/icons-material/CleaningServices'
 
 function DirectorForm() {
   const dispatch = useDispatch()
@@ -31,7 +31,7 @@ function DirectorForm() {
     fullName: Yup.string().required('Name is required'),
   })
 
-  const onDirectorSubmit = (values, actions) => {
+  const onDirectorSubmit = (values) => {
     !values.id
       ? dispatch(createDirectorAction({ ...values, id: Date.now() }))
       : dispatch(updateDirectorAction(values))
@@ -39,11 +39,6 @@ function DirectorForm() {
   }
 
   const goHome = () => navigate('/directors')
-
-  const onDirectorDelete = (id) => {
-    dispatch(deleteDirectorAction(id))
-    goHome()
-  }
 
   const renderFormik = (props) => {
     return (
@@ -102,39 +97,42 @@ function DirectorForm() {
           </FieldArray>
         </fieldset>
 
-        <Stack>
-          <Stack direction='row' spacing={2}>
-            <label htmlFor='image'>image</label>
-            <Field
-              className='textarea-container'
-              as='textarea'
-              name='image'
-            ></Field>
-          </Stack>
-          <ErrorMessage name='image'>
-            {(msg) => <div className='error'>{msg}</div>}
-          </ErrorMessage>
+        <Stack direction='row' spacing={2}>
+          <label htmlFor='image'>image</label>
+          <Field
+            className='textarea-container'
+            as='textarea'
+            name='image'
+          ></Field>
         </Stack>
 
-        <Stack>
-          <Button type='submit' startIcon={<SaveIcon />} size='large'>
+        <ButtonGroup variant='contained' className='button-group'>
+          <Button
+            variant='outlined'
+            type='submit'
+            startIcon={<SaveIcon />}
+            disabled={!props.isValid}
+            size='large'
+          >
             Save
           </Button>
           <Button
-            startIcon={<DeleteIcon />}
+            variant='outlined'
+            type='reset'
             size='large'
-            onClick={() => onDirectorDelete(id)}
+            startIcon={<CleaningServicesIcon />}
           >
-            Delete
+            Reset
           </Button>
           <Button
+            variant='outlined'
             startIcon={<KeyboardReturnIcon />}
             size='large'
             onClick={() => goHome()}
           >
             Return
           </Button>
-        </Stack>
+        </ButtonGroup>
       </Form>
     )
   }

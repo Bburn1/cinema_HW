@@ -3,18 +3,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Form, Field, ErrorMessage, Formik, FieldArray } from 'formik'
 import * as Yup from 'yup'
-import { Button, Stack } from '@mui/material'
+import { Button, ButtonGroup, Stack } from '@mui/material'
 import SaveIcon from '@mui/icons-material/Save'
 import AddIcon from '@mui/icons-material/Add'
 
 import DeleteIcon from '@mui/icons-material/Delete'
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn'
+import CleaningServicesIcon from '@mui/icons-material/CleaningServices'
+
 import {
   createMovieAction,
-  deleteMovieAction,
   updateMovieAction,
 } from '../../store/actions/movieActions'
 import { emptyMovie } from '../../constants'
+
+import '../layout.css'
 
 function MovieForm() {
   const dispatch = useDispatch()
@@ -33,14 +36,10 @@ function MovieForm() {
 
   const goHome = () => navigate('/movies')
 
-  const onMovieSubmit = (values, actions) => {
+  const onMovieSubmit = (values) => {
     !values.id
       ? dispatch(createMovieAction({ ...values, id: Date.now() }))
       : dispatch(updateMovieAction(values))
-    goHome()
-  }
-  const onMovieDelete = (id) => {
-    dispatch(deleteMovieAction(id))
     goHome()
   }
 
@@ -166,44 +165,43 @@ function MovieForm() {
             }}
           </FieldArray>
         </fieldset>
-        <Stack>
-          <Stack direction='row' spacing={2}>
-            <label htmlFor='poster'>poster</label>
-            <Field
-              className='textarea-container'
-              as='textarea'
-              name='poster'
-            ></Field>
-          </Stack>
-          <ErrorMessage name='poster'>
-            {(msg) => <div className='error'>{msg}</div>}
-          </ErrorMessage>
+
+        <Stack direction='row' spacing={2}>
+          <label htmlFor='poster'>poster</label>
+          <Field
+            className='textarea-container'
+            as='textarea'
+            name='poster'
+          ></Field>
         </Stack>
 
-        <Stack>
+        <ButtonGroup variant='contained' className='button-group'>
           <Button
+            variant='outlined'
             type='submit'
             startIcon={<SaveIcon />}
-            // disabled={}
+            disabled={!props.isValid}
             size='large'
           >
             Save
           </Button>
           <Button
-            startIcon={<DeleteIcon />}
+            variant='outlined'
+            type='reset'
             size='large'
-            onClick={() => onMovieDelete(id)}
+            startIcon={<CleaningServicesIcon />}
           >
-            Delete
+            Reset
           </Button>
           <Button
+            variant='outlined'
             startIcon={<KeyboardReturnIcon />}
             size='large'
             onClick={() => goHome()}
           >
             Return
           </Button>
-        </Stack>
+        </ButtonGroup>
       </Form>
     )
   }

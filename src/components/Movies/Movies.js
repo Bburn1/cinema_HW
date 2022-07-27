@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, Route, Routes } from 'react-router-dom'
+import { Link, Navigate, Route, Routes } from 'react-router-dom'
 
-import {
-  deleteMovieAction,
-  getAllMoviesAction,
-} from '../../store/actions/movieActions'
+import { getAllMoviesAction } from '../../store/actions/movieActions'
 
 import MovieItem from './MovieItem'
 import MovieList from './MovieList'
@@ -20,22 +17,17 @@ function Movies() {
     dispatch(getAllMoviesAction())
   }, [dispatch])
 
-  const onDelete = (id) => {
-    dispatch(deleteMovieAction(id))
-  }
-
   return (
     <>
       <div>
-        <Link to='new'>New</Link>
+        <Link to='new' className='new-btn'>
+          New
+        </Link>
       </div>
       <Routes>
-        <Route path='new' />
         <Route path=':id' element={<MovieItem movies={movies} />} />
-        <Route
-          path='/'
-          element={<MovieList movies={movies} onDelete={onDelete} />}
-        />
+        <Route path='/' element={<MovieList movies={movies} />} />
+        <Route path='new' element={<Navigate to='/movies/new/:id' />} />
       </Routes>
     </>
   )

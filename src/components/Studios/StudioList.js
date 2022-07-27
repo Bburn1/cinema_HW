@@ -1,12 +1,13 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 
 import { Link } from 'react-router-dom'
+import { deleteStudioAction } from '../../store/actions/studioAction'
 
-import StudioItem from './StudioItem'
-
-function StudioList({ studios, onDelete }) {
+function StudioList({ studios }) {
+  const dispatch = useDispatch()
   const onDeleteStudio = (id) => {
-    onDelete(id)
+    dispatch(deleteStudioAction(id))
   }
   return (
     <div>
@@ -14,11 +15,7 @@ function StudioList({ studios, onDelete }) {
         {studios.map((studio) => {
           return (
             <li key={studio.id} className='item-list-inbox'>
-              <Link
-                element={<StudioItem studio={studio} />}
-                key={studio.id}
-                to={`${studio.id}`}
-              >
+              <Link key={studio.id} to={`${studio.id}`}>
                 <p>{studio.title}</p>
               </Link>
               <div className='edit-item_box'>

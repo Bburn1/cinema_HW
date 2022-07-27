@@ -1,11 +1,12 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { deleteDirectorAction } from '../../store/actions/directorAction'
 
-import DirectorItem from './DirectorItem'
-
-function DirectorList({ directors, onDelete }) {
+function DirectorList({ directors }) {
+  const dispatch = useDispatch()
   const onDeleteDirector = (id) => {
-    onDelete(id)
+    dispatch(deleteDirectorAction(id))
   }
   return (
     <div>
@@ -13,11 +14,7 @@ function DirectorList({ directors, onDelete }) {
         {directors.map((director) => {
           return (
             <li key={director.id} className='item-list-inbox'>
-              <Link
-                element={<DirectorItem director={director} />}
-                key={director.id}
-                to={`${director.id}`}
-              >
+              <Link key={director.id} to={`${director.id}`}>
                 <p>{director.fullName}</p>
               </Link>
 

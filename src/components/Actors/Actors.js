@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, Route, Routes } from 'react-router-dom'
-import {
-  deleteActorAction,
-  getAllActorsAction,
-} from '../../store/actions/actorAction'
+import { Link, Navigate, Route, Routes } from 'react-router-dom'
+import { getAllActorsAction } from '../../store/actions/actorAction'
 
 import ActorItem from './ActorItem'
 import ActorList from './ActorList'
@@ -19,23 +16,17 @@ function Actors() {
     dispatch(getAllActorsAction())
   }, [dispatch])
 
-  const onDelete = (id) => {
-    dispatch(deleteActorAction(id))
-  }
-
   return (
     <>
       <div>
-        <Link to='new'>New</Link>
+        <Link to='new' className='new-btn'>
+          New
+        </Link>
       </div>
       <Routes>
-        <Route path='new' />
-
         <Route path=':id' element={<ActorItem actors={actors} />} />
-        <Route
-          path='/'
-          element={<ActorList actors={actors} onDelete={onDelete} />}
-        />
+        <Route path='/' element={<ActorList actors={actors} />} />
+        <Route path='new' element={<Navigate to='/actors/new/:id' />} />
       </Routes>
     </>
   )

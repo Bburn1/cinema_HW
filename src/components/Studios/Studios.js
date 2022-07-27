@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, Route, Routes } from 'react-router-dom'
-import {
-  deleteStudioAction,
-  getAllStudiosAction,
-} from '../../store/actions/studioAction'
+import { Link, Navigate, Route, Routes } from 'react-router-dom'
+import { getAllStudiosAction } from '../../store/actions/studioAction'
 
 import StudioItem from './StudioItem'
 import StudioList from './StudioList'
@@ -19,22 +16,17 @@ function Studios() {
     dispatch(getAllStudiosAction())
   }, [dispatch])
 
-  const onDelete = (id) => {
-    dispatch(deleteStudioAction(id))
-  }
-
   return (
     <>
       <div>
-        <Link to='new'>New</Link>
+        <Link to='new' className='new-btn'>
+          New
+        </Link>
       </div>
       <Routes>
-        <Route path='new' />
         <Route path=':id' element={<StudioItem studios={studios} />} />
-        <Route
-          path='/'
-          element={<StudioList studios={studios} onDelete={onDelete} />}
-        />
+        <Route path='/' element={<StudioList studios={studios} />} />
+        <Route path='new' element={<Navigate to='/studios/new/:id' />} />
       </Routes>
     </>
   )
