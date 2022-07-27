@@ -57,7 +57,7 @@
   "movies": [
     {
       "id": 1,
-      "title": "Indiana Joh",
+      "title": "Indiana John",
       "directors": [
         "Stiven Spilberg",
         "Spilberg Stiven",
@@ -75,20 +75,6 @@
       "movies": [
         ""
       ]
-    },
-    {
-      "id": 2,
-      "title": "Alien",
-      "directors": [
-        "Ridley Scott"
-      ],
-      "actors": [
-        "Sigourney Weaver"
-      ],
-      "studios": [
-        "20th Century Studios, Inc."
-      ],
-      "poster": "https://upload.wikimedia.org/wikipedia/ru/thumb/c/c3/Alien_movie_poster.jpg/232px-Alien_movie_poster.jpg"
     },
     {
       "id": 4,
