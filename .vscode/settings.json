@@ -1,0 +1,14 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "dpd-2022-1",
+      "database": "cinema",
+      "username": "postgres",
+      "password": "admin"
+    }
+  ]
+}
