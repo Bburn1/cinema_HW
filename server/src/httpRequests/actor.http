@@ -1,0 +1,27 @@
+# DELETE http://localhost:5000/api/actors/7 HTTP/1.1
+# content-type: application/json
+
+# POST http://localhost:5000/api/actors HTTP/1.1
+# content-type: application/json
+
+# {
+#     "full_name": "John Doe",
+#     "birth_year": "01-01-1998",
+#     "death_year": "01-01-2018",
+#     "national_id": 3,
+#     "photo": "https://ru.citaty.net/media/authors/john-doe-musician.jpeg"
+# }
+
+# PUT http://localhost:5000/api/actors HTTP/1.1
+# content-type: application/json
+
+# {
+#     "id": 7,
+#     "full_name": "John DDDOn",
+#     "birth_year": "01-01-2011",
+#     "death_year": "01-01-2012",
+
+
+#     "national_id": 3,
+#    "photo": "https://ru.citaty.net/media/authors/john-doe-musician.jpeg"
+# }
