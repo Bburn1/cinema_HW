@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { emptyDirectors } from '../../constants'
-import { Grid, Stack } from '@mui/material'
+import { Grid } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDirectorsByMovieAction } from '../../store/actions/movieDirectorsActorsAction'
 
