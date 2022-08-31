@@ -4,7 +4,7 @@ import ActorForm from '../components/Actors/ActorForm'
 import ActorsMovie from '../components/Actors/ActorsMovie'
 import DirectorForm from '../components/Directors/DirectorForm'
 import GenreForm from '../components/Genres/GenreForm'
-import LocationForm from '../components/Locations/LocationForm'
+
 import MovieForm from '../components/Movies/MovieForm'
 import NationalityForm from '../components/Nationalities/NationalityForm'
 import StudioForm from '../components/Studios/StudioForm'
@@ -39,9 +39,6 @@ function CinemaService() {
 
           <Route path='/nationalities/new' element={<NationalityForm />} />
           <Route path='/nationalities/new/:id' element={<NationalityForm />} />
-
-          <Route path='/locations/cities/new' element={<LocationForm />} />
-          <Route path='/locations/cities/new/:id' element={<LocationForm />} />
         </Routes>
       </div>
     </>

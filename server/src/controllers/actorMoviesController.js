@@ -54,16 +54,29 @@ class MovieByActorController {
 
   async deleteMovieByActor(req, res) {
     try {
-      const id = req.params.id
+      const movie_id = req.params.id
+      const actor_id = req.params.id
+
+      // const id2 = req.params.id
+
+      console.log(movie_id)
+      console.log(actor_id)
+
+      console.log(req.body)
+
+      // console.log(id)
+
       const deleteMovieByActor = await db.query(
-        `DELETE FROM movieByActors WHERE id = $1 RETURNING *`,
-        [id]
+        `DELETE FROM  movies_actors WHERE movie_id = $1`,
+        [movie_id]
       )
       res.json(deleteMovieByActor.rows[0])
     } catch (error) {
       console.log(error)
     }
   }
+
+  // movie_id = $1 AND actor_id = $2
 }
 
 module.exports = new MovieByActorController()

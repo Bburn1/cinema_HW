@@ -1,7 +1,11 @@
 import { takeLatest } from 'redux-saga/effects'
 
 import ACTIONS_TYPES from '../store/actions/actionsTypes'
-import { getMoviesByActorSaga } from './actorMoviesSagas'
+import { deleteMovieByActorAction } from '../store/actions/actorMoviesAction'
+import {
+  deleteMovieByActorSaga,
+  getMoviesByActorSaga,
+} from './actorMoviesSagas'
 import {
   createActorSaga,
   deleteActorSaga,
@@ -98,7 +102,6 @@ function* rootSaga() {
   yield takeLatest(ACTIONS_TYPES.PUT_STUDIO_ACTION, updateStudioSaga)
   yield takeLatest(ACTIONS_TYPES.PUT_GENRE_ACTION, updateGenreSaga)
   yield takeLatest(ACTIONS_TYPES.PUT_NATIONALITY_ACTION, updateNationalitySaga)
-  yield takeLatest(ACTIONS_TYPES.PUT_LOCATION_ACTION, updateLocationSaga)
 
   yield takeLatest(ACTIONS_TYPES.DELETE_DIRECTOR_ACTION, deleteDirectorSaga)
   yield takeLatest(ACTIONS_TYPES.DELETE_MOVIE_ACTION, deleteMovieSaga)
@@ -110,6 +113,12 @@ function* rootSaga() {
     deleteNationalitySaga
   )
   yield takeLatest(ACTIONS_TYPES.DELETE_LOCATION_ACTION, deleteLocationSaga)
+  yield takeLatest(
+    ACTIONS_TYPES.DELETE_MOVIE_BY_ACTOR_ACTION,
+    deleteMovieByActorSaga
+  )
+
+  ///
 }
 
 export default rootSaga

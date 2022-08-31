@@ -16,9 +16,18 @@ class LocationController {
 
   async getLocations(req, res) {
     try {
-      const genres = await db.query(`SELECT * FROM genres`)
+      const id = req.params.id
 
-      res.json(genres.rows)
+      const cities = await db.query(
+        `SELECT 
+      locations.city AS city, 
+      locations.id AS id,
+      locations.country_id AS country_id
+          FROM locations WHERE country_id = $1`,
+        [id]
+      )
+
+      res.json(cities.rows)
     } catch (error) {
       console.log(error)
     }
@@ -41,9 +50,11 @@ class LocationController {
 
   async deleteLocation(req, res) {
     try {
-      const id = req.params.id
+      const { id } = req.body
+      console.log(id)
+
       const deleteLocation = await db.query(
-        `DELETE FROM genres WHERE id = $1 RETURNING *`,
+        `DELETE FROM locations WHERE id = $1 RETURNING *`,
         [id]
       )
       res.json(deleteLocation.rows[0])

@@ -39,9 +39,9 @@ function Layout() {
                 <li className='item-list'>
                   <Link to='/nationalities'>Nationalities</Link>
                 </li>
-                <li className='item-list'>
+                {/* <li className='item-list'>
                   <Link to='/locations'>Locations</Link>
-                </li>
+                </li> */}
               </ul>
             </div>
           </Grid>

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link, Navigate, Route, Routes } from 'react-router-dom'
+import CityList from './CityList'
 // import NationalityItem from './NationalityItem'
 import NationalityList from './NationalityList'
 
@@ -27,6 +28,7 @@ function Nationalities() {
           element={<NationalityList nationalities={nationalities} />}
         />
         <Route path='new' element={<Navigate to='/nationalities/new/:id' />} />
+        <Route path=':id/cities' element={<CityList />} />
       </Routes>
     </>
   )

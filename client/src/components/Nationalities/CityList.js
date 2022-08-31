@@ -1,10 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { deleteLocationAction } from '../../store/actions/locationAction'
+import { Link, useParams } from 'react-router-dom'
+import {
+  deleteLocationAction,
+  getLocationsAction,
+} from '../../store/actions/locationAction'
 
-function LocationList({ locations }) {
+function CityList() {
+  const { id } = useParams()
   const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getLocationsAction(id))
+  }, [dispatch, id])
+
+  const {
+    locationList: { locations },
+  } = useSelector((state) => state)
+  console.log(id)
 
   const onDeleteLocation = (id) => {
     dispatch(deleteLocationAction(id))
@@ -13,17 +25,12 @@ function LocationList({ locations }) {
   return (
     <div>
       <ul>
-        {/* {locations.map((location) => {
+        {locations.map((location) => {
           return (
             <li key={location.id} className='item-list-inbox'>
-              <Link key={location.id} to={`${location.id}`}>
-                <p>{location.title}</p>
-              </Link>
+              <p>{location.city}</p>
 
               <div className='edit-item_box'>
-                <Link to={`new/${location.id}`}>
-                  <p id='edit' className='fa fa-pencil'></p>
-                </Link>
                 <span
                   id='delete'
                   className='fa fa fa-trash-o'
@@ -32,10 +39,10 @@ function LocationList({ locations }) {
               </div>
             </li>
           )
-        })} */}
+        })}
       </ul>
     </div>
   )
 }
 
-export default LocationList
+export default CityList

@@ -1,5 +1,7 @@
 const Router = require('express')
 const nationalityController = require('../controllers/nationalityController')
+const locationController = require('../controllers/locationController')
+
 //========================================
 
 const router = new Router()
@@ -15,5 +17,12 @@ router
 
   .get(nationalityController.getNationalityById)
   .delete(nationalityController.deleteNationality)
+
+router
+  .route('/nationalities/:id/cities')
+  .post(locationController.createLocation)
+  .get(locationController.getLocations)
+  .put(locationController.updateLocation)
+  .delete(locationController.deleteLocation)
 
 module.exports = router

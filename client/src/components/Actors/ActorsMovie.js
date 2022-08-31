@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { emptyActor } from '../../constants'
-import { Grid, Stack } from '@mui/material'
+import { Grid } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { getMoviesByActorsAction } from '../../store/actions/actorMoviesAction'
+import {
+  deleteMovieByActorAction,
+  getMoviesByActorsAction,
+} from '../../store/actions/actorMoviesAction'
 
 function ActorsMovie() {
   const dispatch = useDispatch()
@@ -22,10 +25,18 @@ function ActorsMovie() {
 
   const actor = artist ? artist : emptyActor
 
-  console.log(actorsMovie)
+  // console.log(actorsMovie)
+
+  const onDeleteMovie = (actor_id, movie_id) => {
+    dispatch(deleteMovieByActorAction(actor_id, movie_id))
+  }
+
+  console.log(id)
+  // console.log(movie.movie_id)
 
   return (
     <Grid container>
+      )
       <Grid
         item
         lg={12}
@@ -44,6 +55,15 @@ function ActorsMovie() {
               <Link key={movie.movie_id} to={`/movies/${movie.movie_id}`}>
                 <p>{movie.movie_title}</p>
               </Link>
+              <span
+                id='delete'
+                className='fa fa fa-trash-o'
+                onClick={() =>
+                  onDeleteMovie(String(actor.id), String(movie.movie_id))
+                }
+              >
+                {actor.id}
+              </span>
               {/* <div className='edit-item_box'>
                 <Link to={`new/${actor.id}`}>
                   <p id='edit' className='fa fa-pencil'></p>

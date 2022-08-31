@@ -51,10 +51,11 @@ export const createMovieByActorError = (payload) => {
 }
 
 // Delete
-export const deleteMovieByActorAction = (payload) => {
+export const deleteMovieByActorAction = (actor_id, movie_id) => {
   return {
     type: ACTIONS_TYPES.DELETE_MOVIE_BY_ACTOR_ACTION,
-    payload,
+    actor_id,
+    movie_id,
   }
 }
 export const deleteMovieByActorRequest = () => {
@@ -62,15 +63,17 @@ export const deleteMovieByActorRequest = () => {
     type: ACTIONS_TYPES.DELETE_MOVIE_BY_ACTOR_REQUEST,
   }
 }
-export const deleteMovieByActorSuccess = (payload) => {
+export const deleteMovieByActorSuccess = (actor_id, movie_id) => {
   return {
     type: ACTIONS_TYPES.DELETE_MOVIE_BY_ACTOR_SUCCESS,
-    payload,
+    actor_id,
+    movie_id,
   }
 }
-export const deleteMovieByActorError = (payload) => {
+export const deleteMovieByActorError = (actor_id, movie_id) => {
   return {
     type: ACTIONS_TYPES.DELETE_MOVIE_BY_ACTOR_ERROR,
-    payload,
+    actor_id,
+    movie_id,
   }
 }

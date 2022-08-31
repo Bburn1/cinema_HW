@@ -14,7 +14,7 @@ function NationalityList({ nationalities }) {
         {nationalities.map((nationality) => {
           return (
             <li key={nationality.id} className='item-list-inbox'>
-              <Link key={nationality.id} to={`${nationality.id}`}>
+              <Link key={nationality.id} to={`${nationality.id}/cities`}>
                 <p>
                   {nationality.title} -- {nationality.description}
                 </p>

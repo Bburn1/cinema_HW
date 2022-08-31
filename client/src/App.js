@@ -14,7 +14,7 @@ import Actors from './components/Actors/Actors'
 import Directors from './components/Directors/Directors'
 import Genres from './components/Genres/Genres'
 import Layout from './components/Layout'
-import Locations from './components/Locations/Locations'
+
 import Movies from './components/Movies/Movies'
 import Nationalities from './components/Nationalities/Nationalities'
 import Studios from './components/Studios/Studios'
@@ -38,7 +38,6 @@ function App() {
             <Route path='studios/*' element={<Studios />} />
             <Route path='genres/*' element={<Genres />} />
             <Route path='nationalities/*' element={<Nationalities />} />
-            <Route path='locations/*' element={<Locations />} />
 
             <Route index element={<div>Home</div>} />
             <Route path='*' element={<Navigate to='/movies' />} />

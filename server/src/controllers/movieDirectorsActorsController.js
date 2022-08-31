@@ -91,10 +91,13 @@ class movieDirectorsActorsController {
 
   async deleteActorByMovie(req, res) {
     try {
+      // const id = req.params.id
       const id = req.params.id
+      const { movie_id } = req.body
+
       const deleteActorByMovie = await db.query(
-        `DELETE FROM ActorByMovies WHERE id = $1 RETURNING *`,
-        [id]
+        `SELECT * FROM  movies_actors WHERE movie_id = $1 AND actor_id = $2 RETURNING *`,
+        [movie_id, id]
       )
       res.json(deleteActorByMovie.rows[0])
     } catch (error) {
