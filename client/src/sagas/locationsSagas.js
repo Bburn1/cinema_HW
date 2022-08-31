@@ -21,7 +21,7 @@ export function* getLocationsSaga({ payload }) {
   yield put(getLocationsRequest())
   try {
     const locations = yield cinemaService
-      .get('/locations', payload)
+      .get(`/nationalities/${payload}/cities`, payload)
       .then(({ data }) => data)
     yield put(getLocationsSuccess(locations))
   } catch (error) {
@@ -44,7 +44,7 @@ export function* updateLocationSaga({ payload }) {
 export function* deleteLocationSaga({ payload }) {
   yield put(deleteLocationRequest())
   try {
-    yield cinemaService.delete(`/locations/${payload}`)
+    yield cinemaService.delete(`/nationalities/:id/cities`, payload)
     yield put(deleteLocationSuccess(payload))
   } catch (error) {
     yield put(deleteLocationError(error))
