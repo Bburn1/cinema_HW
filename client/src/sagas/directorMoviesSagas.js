@@ -26,22 +26,13 @@ export function* getMoviesByDirectorSaga({ payload }) {
   }
 }
 
-// export function* updateMovieByDirectorSaga({ payload }) {
-//   yield put(updateMovieByDirectorRequest())
-//   try {
-//     const updateMovieByDirector = yield cinemaService
-//       .put(`/directors/${payload.id}`, payload)
-//       .then(({ data }) => data)
-//     yield put(updateMovieByDirectorSuccess(updateMovieByDirector))
-//   } catch (error) {
-//     yield put(updateMovieByDirectorError(error))
-//   }
-// }
-
 export function* deleteMovieByDirectorSaga({ payload }) {
   yield put(deleteMovieByDirectorRequest())
   try {
-    yield cinemaService.delete(`/directors/${payload}/movies`, payload)
+    yield cinemaService.delete(
+      `/directors/${payload[0]}}/movies?director_id=${payload[0]}&movie_id=${payload[1]}`,
+      payload
+    )
     yield put(deleteMovieByDirectorSuccess(payload))
   } catch (error) {
     yield put(deleteMovieByDirectorError(error))
@@ -59,5 +50,3 @@ export function* createMovieByDirectorSaga({ payload }) {
     yield put(createMovieByDirectorError(error))
   }
 }
-
-// getMoviesByMovieByDirectorSaga

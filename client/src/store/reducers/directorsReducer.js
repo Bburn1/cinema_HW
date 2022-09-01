@@ -31,7 +31,7 @@ export default function directorsReducer(
       return {
         ...state,
         directors: state.directors.filter(
-          (director) => director.id !== payload
+          (director) => director.id !== payload[1]
         ),
         isFetching: false,
       }

@@ -39,7 +39,7 @@ export default function movieDirectorsActorsReducer(
       return {
         ...state,
         movieDirectors: state.movieDirectors.filter(
-          (movieDirector) => movieDirector.id !== payload
+          (movieDirector) => movieDirector.id !== payload[1]
         ),
         isFetching: false,
       }
@@ -48,7 +48,7 @@ export default function movieDirectorsActorsReducer(
       return {
         ...state,
         movieActors: state.movieActors.filter(
-          (movieActor) => movieActor.id !== payload
+          (movieActor) => movieActor.id !== payload[1]
         ),
         isFetching: false,
       }

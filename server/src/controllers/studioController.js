@@ -3,20 +3,17 @@ const db = require('../db')
 class StudioController {
   async createStudio(req, res) {
     try {
-      const { title, found_year, logo, city, country } = req.body
+      const { title, found_year, logo, city } = req.body
 
       const newStudio = await db.query(
-        // `
-        // BEGIN
-        // INSERT INTO locations
-        // (city, country_id)
-        // VALUES($4, (SELECT id FROM nationalities WHERE title=$5)) RETURNING *
-        // INSERT INTO studios
-        // (title, found_year, logo, location_id)
-        // VALUES($1, $2, $3, (SELECT id FROM locations WHERE city=$4)) RETURNING *
-        // COMMIT
-        // `,
-        [title, found_year, logo, city, country]
+        `
+       
+        INSERT INTO studios
+        (title, found_year, logo, location_id)
+        VALUES($1, $2, $3, (SELECT id FROM locations WHERE city=$4)) RETURNING *
+        
+        `,
+        [title, found_year, logo, city]
       )
 
       res.json(newStudio.rows[0])
@@ -43,29 +40,14 @@ class StudioController {
       console.log(error)
     }
   }
-  // SELECT studios.id AS id, title, logo,found_year, locations.city AS location
-  //         FROM studios LEFT JOIN locations
-  //         ON location_id = locations.id
-  async getStudioById(req, res) {
-    try {
-      const { id } = req.params
-      const studio = await db.query(
-        `SELECT * FROM studios WHERE id = $1 RETURNING *`,
-        [id]
-      )
-      res.json(studio.rows[0])
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   async updateStudio(req, res) {
     try {
-      const { title, found_year, logo, city, country, id } = req.body
+      const { title, found_year, logo, city, id } = req.body
       const updateStudio = await db.query(
-        `UPDATE studios SET title=$1, found_year=$2, logo=$3, location_id=$4
-      WHERE id = $6 RETURNING *`,
-        [title, found_year, logo, location_id, id]
+        `UPDATE studios SET title=$1, found_year=$2, logo=$3, location_id=(SELECT id FROM locations WHERE city=$4)
+      WHERE id = $5 RETURNING *`,
+        [title, found_year, logo, city, id]
       )
 
       res.json(updateStudio.rows[0])
@@ -86,6 +68,19 @@ class StudioController {
       console.log(error)
     }
   }
+
+  // async getStudioById(req, res) {
+  //   try {
+  //     const { id } = req.params
+  //     const studio = await db.query(
+  //       `SELECT * FROM studios WHERE id = $1 RETURNING *`,
+  //       [id]
+  //     )
+  //     res.json(studio.rows[0])
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 }
 
 module.exports = new StudioController()

@@ -13,7 +13,7 @@ router
   .route('/studios/:id')
 
   .put(studioController.updateStudio)
-  .get(studioController.getStudioById)
+  // .get(studioController.getStudioById)
   .delete(studioController.deleteStudio)
 
 module.exports = router

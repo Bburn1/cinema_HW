@@ -29,22 +29,25 @@ export function* getLocationsSaga({ payload }) {
   }
 }
 
-export function* updateLocationSaga({ payload }) {
-  yield put(updateLocationRequest())
-  try {
-    const updateLocation = yield cinemaService
-      .put(`/locations/${payload.id}`, payload)
-      .then(({ data }) => data)
-    yield put(updateLocationSuccess(updateLocation))
-  } catch (error) {
-    yield put(updateLocationError(error))
-  }
-}
+// export function* updateLocationSaga({ payload }) {
+//   yield put(updateLocationRequest())
+//   try {
+//     const updateLocation = yield cinemaService
+//       .put(`/locations/${payload.id}`, payload)
+//       .then(({ data }) => data)
+//     yield put(updateLocationSuccess(updateLocation))
+//   } catch (error) {
+//     yield put(updateLocationError(error))
+//   }
+// }
 
 export function* deleteLocationSaga({ payload }) {
   yield put(deleteLocationRequest())
   try {
-    yield cinemaService.delete(`/nationalities/:id/cities`, payload)
+    yield cinemaService.delete(
+      `/nationalities/${payload[0]}/cities?location_id=${payload[1]}`,
+      payload
+    )
     yield put(deleteLocationSuccess(payload))
   } catch (error) {
     yield put(deleteLocationError(error))
@@ -55,7 +58,7 @@ export function* createLocationSaga({ payload }) {
   yield put(createLocationRequest())
   try {
     const newLocation = yield cinemaService
-      .post('/locations', payload)
+      .post(`/nationalities/${payload.id}/cities`, payload)
       .then(({ data }) => data)
     yield put(createLocationSuccess(newLocation))
   } catch (error) {

@@ -12,7 +12,10 @@ import {
   getAllActorsSaga,
   updateActorSaga,
 } from './actorsSagas'
-import { getMoviesByDirectorSaga } from './directorMoviesSagas'
+import {
+  deleteMovieByDirectorSaga,
+  getMoviesByDirectorSaga,
+} from './directorMoviesSagas'
 import {
   createDirectorSaga,
   deleteDirectorSaga,
@@ -32,6 +35,8 @@ import {
   updateLocationSaga,
 } from './locationsSagas'
 import {
+  deleteActorByMovieSaga,
+  deleteDirectorByMovieSaga,
   getActorsByMovieSaga,
   getDirectorsByMovieSaga,
 } from './movieDirectorsActorsSagas'
@@ -116,6 +121,19 @@ function* rootSaga() {
   yield takeLatest(
     ACTIONS_TYPES.DELETE_MOVIE_BY_ACTOR_ACTION,
     deleteMovieByActorSaga
+  )
+  yield takeLatest(
+    ACTIONS_TYPES.DELETE_MOVIE_BY_DIRECTOR_ACTION,
+    deleteMovieByDirectorSaga
+  )
+
+  yield takeLatest(
+    ACTIONS_TYPES.DELETE_ACTOR_BY_MOVIE_ACTION,
+    deleteActorByMovieSaga
+  )
+  yield takeLatest(
+    ACTIONS_TYPES.DELETE_DIRECTOR_BY_MOVIE_ACTION,
+    deleteDirectorByMovieSaga
   )
 
   ///

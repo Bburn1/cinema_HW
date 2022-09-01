@@ -14,7 +14,6 @@ router
 router
   .route('/nationalities/:id')
   .put(nationalityController.updateNationality)
-
   .get(nationalityController.getNationalityById)
   .delete(nationalityController.deleteNationality)
 
@@ -22,7 +21,7 @@ router
   .route('/nationalities/:id/cities')
   .post(locationController.createLocation)
   .get(locationController.getLocations)
-  .put(locationController.updateLocation)
+  // .put(locationController.updateLocation)
   .delete(locationController.deleteLocation)
 
 module.exports = router

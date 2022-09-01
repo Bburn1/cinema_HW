@@ -8,7 +8,7 @@ const initialState = {
 
 export default function actorsMovieReducer(
   state = initialState,
-  { type, payload, movie_id }
+  { type, payload }
 ) {
   switch (type) {
     // Get all
@@ -25,7 +25,7 @@ export default function actorsMovieReducer(
       return {
         ...state,
         actorsMovie: state.actorsMovie.filter(
-          (actorMovie) => actorMovie.id !== movie_id
+          (actorMovie) => actorMovie.id !== payload[1]
         ),
         isFetching: false,
       }

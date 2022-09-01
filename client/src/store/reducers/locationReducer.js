@@ -21,31 +21,21 @@ export default function locationsReducer(
         isFetching: false,
       }
 
-    case ACTIONS_TYPES.PUT_LOCATION_SUCCESS:
-      return {
-        ...state,
-        locations: state.locations.map((location) => {
-          return location.id !== payload.id ? location : payload
-        }),
-        isFetching: false,
-      }
     case ACTIONS_TYPES.DELETE_LOCATION_SUCCESS:
       return {
         ...state,
         locations: state.locations.filter(
-          (location) => location.id !== payload
+          (location) => location.id !== payload[1]
         ),
         isFetching: false,
       }
 
     case ACTIONS_TYPES.DELETE_LOCATION_REQUEST:
-    case ACTIONS_TYPES.PUT_LOCATION_REQUEST:
     case ACTIONS_TYPES.POST_LOCATION_REQUEST:
     case ACTIONS_TYPES.GET_LOCATIONS_REQUEST:
       return { ...state, isFetching: true }
 
     case ACTIONS_TYPES.DELETE_LOCATION_ERROR:
-    case ACTIONS_TYPES.PUT_LOCATION_ERROR:
     case ACTIONS_TYPES.POST_LOCATION_ERROR:
     case ACTIONS_TYPES.GET_LOCATIONS_ERROR:
       return { ...state, isFetching: false, error: payload }
@@ -54,3 +44,14 @@ export default function locationsReducer(
       return state
   }
 }
+
+// case ACTIONS_TYPES.PUT_LOCATION_REQUEST:
+// case ACTIONS_TYPES.PUT_LOCATION_ERROR:
+// case ACTIONS_TYPES.PUT_LOCATION_SUCCESS:
+//   return {
+//     ...state,
+//     locations: state.locations.map((location) => {
+//       return location.id !== payload.id ? location : payload
+//     }),
+//     isFetching: false,
+//   }

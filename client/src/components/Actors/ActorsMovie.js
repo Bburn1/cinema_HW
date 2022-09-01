@@ -25,14 +25,11 @@ function ActorsMovie() {
 
   const actor = artist ? artist : emptyActor
 
-  // console.log(actorsMovie)
-
-  const onDeleteMovie = (actor_id, movie_id) => {
-    dispatch(deleteMovieByActorAction(actor_id, movie_id))
+  const onDeleteMovie = ([actor_id, movie_id]) => {
+    dispatch(deleteMovieByActorAction([actor_id, movie_id]))
   }
 
   console.log(id)
-  // console.log(movie.movie_id)
 
   return (
     <Grid container>
@@ -58,22 +55,8 @@ function ActorsMovie() {
               <span
                 id='delete'
                 className='fa fa fa-trash-o'
-                onClick={() =>
-                  onDeleteMovie(String(actor.id), String(movie.movie_id))
-                }
-              >
-                {actor.id}
-              </span>
-              {/* <div className='edit-item_box'>
-                <Link to={`new/${actor.id}`}>
-                  <p id='edit' className='fa fa-pencil'></p>
-                </Link> */}
-              {/* <span
-                  id='delete'
-                  className='fa fa fa-trash-o'
-                  onClick={() => onDeleteActor(actor.id)}
-                ></span> */}
-              {/* </div> */}
+                onClick={() => onDeleteMovie([actor.id, movie.movie_id])}
+              ></span>
             </li>
           )
         })}

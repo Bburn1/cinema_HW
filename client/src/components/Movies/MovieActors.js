@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { emptyActor } from '../../constants'
-import { Grid, Stack } from '@mui/material'
+import { Grid } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { getActorsByMovieAction } from '../../store/actions/movieDirectorsActorsAction'
+import {
+  deleteActorByMovieAction,
+  getActorsByMovieAction,
+} from '../../store/actions/movieDirectorsActorsAction'
 
 function ActorsMovie() {
   const dispatch = useDispatch()
@@ -21,6 +24,10 @@ function ActorsMovie() {
   const artist = actors.find((actor) => actor.id === parseInt(id))
 
   const actor = artist ? artist : emptyActor
+
+  const onDeleteActor = ([movie_id, actor_id]) => {
+    dispatch(deleteActorByMovieAction([movie_id, actor_id]))
+  }
 
   // console.log(movieActors)
 
@@ -44,16 +51,11 @@ function ActorsMovie() {
               <Link key={actor.actor_id} to={`/actors/${actor.actor_id}`}>
                 <p>{actor.actor_name}</p>
               </Link>
-              {/* <div className='edit-item_box'>
-                <Link to={`new/${actor.id}`}>
-                  <p id='edit' className='fa fa-pencil'></p>
-                </Link> */}
-              {/* <span
-                  id='delete'
-                  className='fa fa fa-trash-o'
-                  onClick={() => onDeleteActor(actor.id)}
-                ></span> */}
-              {/* </div> */}
+              <span
+                id='delete'
+                className='fa fa fa-trash-o'
+                onClick={() => onDeleteActor([parseInt(id), actor.actor_id])}
+              ></span>
             </li>
           )
         })}

@@ -50,7 +50,10 @@ export function* getActorsByMovieSaga({ payload }) {
 export function* deleteDirectorByMovieSaga({ payload }) {
   yield put(deleteDirectorByMovieRequest())
   try {
-    yield cinemaService.delete(`/movies/${payload}/directors`, payload)
+    yield cinemaService.delete(
+      `/movies/${payload}/directors?movie_id=${payload[0]}&director_id=${payload[1]}`,
+      payload
+    )
     yield put(deleteDirectorByMovieSuccess(payload))
   } catch (error) {
     yield put(deleteDirectorByMovieError(error))
@@ -60,7 +63,10 @@ export function* deleteDirectorByMovieSaga({ payload }) {
 export function* deleteActorByMovieSaga({ payload }) {
   yield put(deleteActorByMovieRequest())
   try {
-    yield cinemaService.delete(`/movies/${payload}/actors`, payload)
+    yield cinemaService.delete(
+      `/movies/${payload[0]}/actors?movie_id=${payload[0]}&actor_id=${payload[1]}`,
+      payload
+    )
     yield put(deleteActorByMovieSuccess(payload))
   } catch (error) {
     yield put(deleteActorByMovieError(error))

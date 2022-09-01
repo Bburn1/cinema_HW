@@ -37,27 +37,12 @@ class MovieByDirectorController {
     }
   }
 
-  // async updateMovieByDirector(req, res) {
-  //   try {
-  //     const { title, description, id } = req.body
-  //     const updateMovieByDirector = await db.query(
-  //       `UPDATE movieByDirectors SET title=$1, description=$2
-  //     WHERE id = $3 RETURNING *`,
-  //       [title, description, id]
-  //     )
-
-  //     res.json(updateMovieByDirector.rows[0])
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
   async deleteMovieByDirector(req, res) {
     try {
-      const id = req.params.id
+      const { director_id, movie_id } = req.query
       const deleteMovieByDirector = await db.query(
-        `DELETE FROM movieByDirectors WHERE id = $1 RETURNING *`,
-        [id]
+        `DELETE FROM movies_directors WHERE movie_id = $2 AND director_id = $1`,
+        [director_id, movie_id]
       )
       res.json(deleteMovieByDirector.rows[0])
     } catch (error) {

@@ -78,10 +78,11 @@ class movieDirectorsActorsController {
 
   async deleteDirectorByMovie(req, res) {
     try {
-      const id = req.params.id
+      const { movie_id, director_id } = req.query
+
       const deleteDirectorByMovie = await db.query(
-        `DELETE FROM DirectorByMovies WHERE id = $1 RETURNING *`,
-        [id]
+        `DELETE FROM movies_directors WHERE movie_id = $1 AND director_id = $2 RETURNING *`,
+        [movie_id, director_id]
       )
       res.json(deleteDirectorByMovie.rows[0])
     } catch (error) {
@@ -91,13 +92,11 @@ class movieDirectorsActorsController {
 
   async deleteActorByMovie(req, res) {
     try {
-      // const id = req.params.id
-      const id = req.params.id
-      const { movie_id } = req.body
+      const { movie_id, actor_id } = req.query
 
       const deleteActorByMovie = await db.query(
-        `SELECT * FROM  movies_actors WHERE movie_id = $1 AND actor_id = $2 RETURNING *`,
-        [movie_id, id]
+        `DELETE FROM  movies_actors WHERE movie_id = $1 AND actor_id = $2 RETURNING *`,
+        [movie_id, actor_id]
       )
       res.json(deleteActorByMovie.rows[0])
     } catch (error) {

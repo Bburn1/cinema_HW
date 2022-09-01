@@ -3,7 +3,10 @@ import { Link, useParams } from 'react-router-dom'
 import { emptyDirectors } from '../../constants'
 import { Grid } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { getDirectorsByMovieAction } from '../../store/actions/movieDirectorsActorsAction'
+import {
+  deleteDirectorByMovieAction,
+  getDirectorsByMovieAction,
+} from '../../store/actions/movieDirectorsActorsAction'
 
 function DirectorsMovie() {
   const dispatch = useDispatch()
@@ -22,7 +25,9 @@ function DirectorsMovie() {
 
   const director = artist ? artist : emptyDirectors
 
-  console.log(movieDirectors)
+  const onDeleteDirector = ([movie_id, director_id]) => {
+    dispatch(deleteDirectorByMovieAction([movie_id, director_id]))
+  }
 
   return (
     <Grid container>
@@ -47,16 +52,13 @@ function DirectorsMovie() {
               >
                 <p>{director.director_name}</p>
               </Link>
-              {/* <div className='edit-item_box'>
-                <Link to={`new/${director.id}`}>
-                  <p id='edit' className='fa fa-pencil'></p>
-                </Link> */}
-              {/* <span
-                  id='delete'
-                  className='fa fa fa-trash-o'
-                  onClick={() => onDeleteDirector(director.id)}
-                ></span> */}
-              {/* </div> */}
+              <span
+                id='delete'
+                className='fa fa fa-trash-o'
+                onClick={() =>
+                  onDeleteDirector([parseInt(id), director.director_id])
+                }
+              ></span>
             </li>
           )
         })}
