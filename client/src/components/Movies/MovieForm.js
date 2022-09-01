@@ -27,6 +27,7 @@ function MovieForm() {
   const {
     moviesList: { movies },
     genresList: { genres },
+    studiosList: { studios },
   } = useSelector((state) => state)
 
   const film = movies.find((item) => item.id === parseInt(id))
@@ -88,115 +89,17 @@ function MovieForm() {
           </Field>
         </Stack>
 
-        {/* <fieldset className='item-container'>
-          <legend>Directors</legend>
-          <FieldArray name='directors'>
-            {({
-              push,
-              remove,
-              form: {
-                values: { directors },
-              },
-            }) => {
-              return (
-                <Stack spacing={2}>
-                  {directors.map((director, index) => (
-                    <Stack key={index} direction='row' spacing={2}>
-                      <Field name={`directors[${index}]`}></Field>
-                      {index > 0 && (
-                        <Button
-                          type='button'
-                          size='large'
-                          startIcon={<DeleteIcon />}
-                          onClick={() => remove(index)}
-                        ></Button>
-                      )}
-                      <Button
-                        type='button'
-                        size='large'
-                        startIcon={<AddIcon />}
-                        onClick={() => push('')}
-                      ></Button>
-                    </Stack>
-                  ))}
-                </Stack>
-              )
-            }}
-          </FieldArray>
-        </fieldset>
-        <fieldset className='item-container'>
-          <legend>Actors</legend>
-          <FieldArray name='actors'>
-            {({
-              push,
-              remove,
-              form: {
-                values: { actors },
-              },
-            }) => {
-              return (
-                <Stack spacing={2}>
-                  {actors.map((actor, index) => (
-                    <Stack key={index} direction='row' spacing={2}>
-                      <Field name={`actors[${index}]`}></Field>
-                      {index > 0 && (
-                        <Button
-                          type='button'
-                          size='large'
-                          startIcon={<DeleteIcon />}
-                          onClick={() => remove(index)}
-                        ></Button>
-                      )}
-                      <Button
-                        type='button'
-                        size='large'
-                        startIcon={<AddIcon />}
-                        onClick={() => push('')}
-                      ></Button>
-                    </Stack>
-                  ))}
-                </Stack>
-              )
-            }}
-          </FieldArray>
-        </fieldset>
-
-        <fieldset className='item-container'>
-          <legend>Studios</legend>
-          <FieldArray name='studios'>
-            {({
-              push,
-              remove,
-              form: {
-                values: { studios },
-              },
-            }) => {
-              return (
-                <Stack spacing={2}>
-                  {studios.map((studio, index) => (
-                    <Stack key={index} direction='row' spacing={2}>
-                      <Field name={`studios[${index}]`}></Field>
-                      {index > 0 && (
-                        <Button
-                          type='button'
-                          size='large'
-                          startIcon={<DeleteIcon />}
-                          onClick={() => remove(index)}
-                        ></Button>
-                      )}
-                      <Button
-                        type='button'
-                        size='large'
-                        startIcon={<AddIcon />}
-                        onClick={() => push('')}
-                      ></Button>
-                    </Stack>
-                  ))}
-                </Stack>
-              )
-            }}
-          </FieldArray>
-        </fieldset> */}
+        <Stack direction='row' spacing={2}>
+          <label htmlFor='studio'>Studio</label>
+          <Field as='select' name='studio'>
+            <option value={values.studio}>{values.studio}</option>
+            {studios.map((studio, index) => (
+              <option value={studio.title} key={index}>
+                {studio.title}
+              </option>
+            ))}
+          </Field>
+        </Stack>
 
         <Stack direction='row' spacing={2}>
           <label htmlFor='poster'>poster</label>

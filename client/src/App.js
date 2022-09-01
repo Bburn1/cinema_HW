@@ -20,12 +20,14 @@ import Nationalities from './components/Nationalities/Nationalities'
 import Studios from './components/Studios/Studios'
 import { getAllGenresAction } from './store/actions/genreAction'
 import { getAllNationalitiesAction } from './store/actions/nationalityAction'
+import { getAllStudiosAction } from './store/actions/studioAction'
 
 function App() {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getAllGenresAction())
     dispatch(getAllNationalitiesAction())
+    dispatch(getAllStudiosAction())
   }, [dispatch])
   return (
     <Router>

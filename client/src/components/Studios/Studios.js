@@ -7,14 +7,9 @@ import StudioItem from './StudioItem'
 import StudioList from './StudioList'
 
 function Studios() {
-  const dispatch = useDispatch()
   const {
     studiosList: { studios },
   } = useSelector((state) => state)
-
-  useEffect(() => {
-    dispatch(getAllStudiosAction())
-  }, [dispatch])
 
   return (
     <>

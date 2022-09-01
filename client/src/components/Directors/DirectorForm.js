@@ -92,42 +92,6 @@ function DirectorForm() {
             ))}
           </Field>
         </Stack>
-        {/* <fieldset className='item-container'>
-          <legend>Movies</legend>
-          <FieldArray name='movies'>
-            {({
-              push,
-              remove,
-              form: {
-                values: { movies },
-              },
-            }) => {
-              return (
-                <Stack spacing={2}>
-                  {movies.map((movie, index) => (
-                    <Stack key={index} direction='row' spacing={2}>
-                      <Field name={`movies[${index}]`}></Field>
-                      {index > 0 && (
-                        <Button
-                          type='button'
-                          size='large'
-                          startIcon={<DeleteIcon />}
-                          onClick={() => remove(index)}
-                        ></Button>
-                      )}
-                      <Button
-                        type='button'
-                        size='large'
-                        startIcon={<AddIcon />}
-                        onClick={() => push('')}
-                      ></Button>
-                    </Stack>
-                  ))}
-                </Stack>
-              )
-            }}
-          </FieldArray>
-        </fieldset> */}
 
         <Stack direction='row' spacing={2}>
           <label htmlFor='photo'>photo</label>
